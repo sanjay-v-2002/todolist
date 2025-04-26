@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple To-Do List</title> <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: lightcoral;
+            display: grid;
+            place-items: center;
+        }
+
+        .box {
+            width: 320px;
+            background: #dadcdc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .task-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            background-color: lightseagreen;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .line {
+            list-style: none;
+            padding: 0;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .line li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+
+        .delete-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: red;
+        }
+
+        .delete-btn:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Simple TO DO LIST</h1> <div class="input-container">
+            <input type="text" placeholder="What do you need to do?" class="task-input"> <button class="btn">Add Task</button> </div>
+        <ul class="line"></ul> </div>
+
+    <script>
+        const input = document.querySelector('.task-input');
+        const addBtn = document.querySelector('.btn');
+        const taskList = document.querySelector('.line');
+
+        function addTask() {
+            const taskText = input.value.trim();
+
+            if (taskText === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.textContent = taskText;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = "remove";
+            deleteBtn.classList.add('delete-btn');
+
+            deleteBtn.addEventListener('click', () => {
+                taskList.removeChild(li);
+            });
+
+            li.appendChild(deleteBtn);
+            taskList.appendChild(li);
+
+            input.value = '';
+        }
+
+        addBtn.addEventListener('click', addTask);
+
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+    </script>
+</body>
+</html>
